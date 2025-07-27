@@ -1,0 +1,251 @@
+* DSA Lab :
+
+* Lab-10 :
+
+* Assignment - 1 :
+
+package DesignPatternDemo;
+
+
+class DVDPlayer {
+    public void on() {
+        System.out.println("DVD Player ON");
+    }
+
+    public void play(String movie) {
+        System.out.println("Playing movie: " + movie);
+    }
+
+    public void off() {
+        System.out.println("DVD Player OFF");
+    }
+}
+
+class Amplifier {
+    public void on() {
+        System.out.println("Amplifier ON");
+    }
+
+    public void setVolume(int level) {
+        System.out.println("Setting volume to " + level);
+    }
+
+    public void off() {
+        System.out.println("Amplifier OFF");
+    }
+}
+
+class Projector {
+    public void on() {
+        System.out.println("Projector ON");
+    }
+
+    public void setInput(String source) {
+        System.out.println("Projector input set to " + source);
+    }
+
+    public void off() {
+        System.out.println("Projector OFF");
+    }
+}
+
+class Screen {
+    public void down() {
+        System.out.println("Screen going DOWN");
+    }
+
+    public void up() {
+        System.out.println("Screen going UP");
+    }
+}
+
+
+class HomeTheaterFacade {
+    private DVDPlayer dvdPlayer;
+    private Amplifier amplifier;
+    private Projector projector;
+    private Screen screen;
+
+    public HomeTheaterFacade(DVDPlayer dvd, Amplifier amp, Projector proj, Screen scr) {
+        this.dvdPlayer = dvd;
+        this.amplifier = amp;
+        this.projector = proj;
+        this.screen = scr;
+    }
+
+    public void watchMovie(String movie) {
+        System.out.println("\n--- Get ready to watch a movie ---");
+        screen.down();
+        projector.on();
+        projector.setInput("DVD");
+        amplifier.on();
+        amplifier.setVolume(5);
+        dvdPlayer.on();
+        dvdPlayer.play(movie);
+    }
+
+    public void endMovie() {
+        System.out.println("\n--- Shutting down movie theater ---");
+        dvdPlayer.off();
+        amplifier.off();
+        projector.off();
+        screen.up();
+    }
+}
+
+
+public class HomeTheaterTest {
+    public static void main(String[] args) {
+       
+        DVDPlayer dvd = new DVDPlayer();
+        Amplifier amp = new Amplifier();
+        Projector proj = new Projector();
+        Screen screen = new Screen();
+
+        
+        HomeTheaterFacade homeTheater = new HomeTheaterFacade(dvd, amp, proj, screen);
+
+        
+        homeTheater.watchMovie("The Matrix");
+        homeTheater.endMovie();
+    }
+}
+
+
+* Assignment - 2 :
+
+package DesignPatternDemo;
+
+import java.util.*;
+
+
+interface Observer {
+    void update(float temperature, float humidity, float pressure);
+}
+
+
+interface Subject {
+    void registerObserver(Observer o);
+    void removeObserver(Observer o);
+    void notifyObservers();
+}
+
+
+class WeatherData implements Subject {
+    private List<Observer> observers;
+    private float temperature;
+    private float humidity;
+    private float pressure;
+
+    public WeatherData() {
+        observers = new ArrayList<>();
+    }
+
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    public void notifyObservers() {
+        for (Observer o : observers) {
+            o.update(temperature, humidity, pressure);
+        }
+    }
+
+    public void setMeasurements(float temperature, float humidity, float pressure) {
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.pressure = pressure;
+        notifyObservers();
+    }
+}
+
+// Observer 1: CurrentConditionsDisplay
+
+class CurrentConditionsDisplay implements Observer {
+    private float temperature;
+    private float humidity;
+
+    public void update(float temperature, float humidity, float pressure) {
+        this.temperature = temperature;
+        this.humidity = humidity;
+        display();
+    }
+
+    public void display() {
+        System.out.println("Current conditions: " + temperature + "°C and " + humidity + "% humidity");
+    }
+}
+
+// Observer 2: StatisticsDisplay
+
+class StatisticsDisplay implements Observer {
+    private List<Float> temperatureReadings = new ArrayList<>();
+
+    public void update(float temperature, float humidity, float pressure) {
+        temperatureReadings.add(temperature);
+        display();
+    }
+
+    public void display() {
+        float sum = 0;
+        for (float t : temperatureReadings) {
+            sum += t;
+        }
+        float avg = sum / temperatureReadings.size();
+        float max = Collections.max(temperatureReadings);
+        float min = Collections.min(temperatureReadings);
+        System.out.println("Avg/Max/Min temperature = " + avg + "/" + max + "/" + min);
+    }
+}
+
+// Observer 3: ForecastDisplay
+
+class ForecastDisplay implements Observer {
+    private float lastPressure = 1013.25f; // Standard pressure
+    private float currentPressure;
+
+    public void update(float temperature, float humidity, float pressure) {
+        lastPressure = currentPressure;
+        currentPressure = pressure;
+        display();
+    }
+
+    public void display() {
+        System.out.print("Forecast: ");
+        if (currentPressure > lastPressure) {
+            System.out.println("Improving weather ahead!");
+        } else if (currentPressure == lastPressure) {
+            System.out.println("No change in weather.");
+        } else {
+            System.out.println("Expect cooler, rainy weather.");
+        }
+    }
+}
+
+
+public class WeatherStation {
+    public static void main(String[] args) {
+        WeatherData weatherData = new WeatherData();
+
+        
+        CurrentConditionsDisplay currentDisplay = new CurrentConditionsDisplay();
+        StatisticsDisplay statisticsDisplay = new StatisticsDisplay();
+        ForecastDisplay forecastDisplay = new ForecastDisplay();
+
+        weatherData.registerObserver(currentDisplay);
+        weatherData.registerObserver(statisticsDisplay);
+        weatherData.registerObserver(forecastDisplay);
+
+        
+        weatherData.setMeasurements(26.5f, 65.0f, 1012.0f);
+        System.out.println("----------------------------");
+        weatherData.setMeasurements(28.0f, 70.0f, 1014.0f);
+        System.out.println("----------------------------");
+        weatherData.setMeasurements(23.0f, 90.0f, 1009.0f);
+    }
+}
+
