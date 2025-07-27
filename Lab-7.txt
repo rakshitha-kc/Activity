@@ -1,0 +1,192 @@
+* Lab-7 :
+
+* Assignment - 1 :
+
+package LoopDemo;
+
+import java.util.Scanner;
+
+public class StudentList {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] students = new String[5];
+
+        System.out.println("Enter the names of 5 students who are present today:");
+
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Student " + (i + 1) + ": ");
+            students[i] = scanner.nextLine();
+        }
+
+        System.out.println("\nList of students present today:");
+        for (int i = 0; i < 5; i++) {
+            System.out.println((i + 1) + ". " + students[i]);
+        }
+
+        scanner.close();
+    }
+}
+
+
+* Assignment - 2 :
+
+a) 
+
+package LoopDemo;
+
+public class PyramidPattern {
+
+    public static void main(String[] args) {
+        int rows = 5; 
+
+        for (int i = 1; i <= rows; i++) {
+            
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print(" ");
+            }
+
+            
+            for (int k = 1; k <= (2 * i - 1); k++) {
+                System.out.print("*");
+            }
+
+            
+            System.out.println();
+        }
+    }
+}
+
+
+b)
+
+package LoopDemo;
+
+public class RightAlignedTriangle {
+
+    public static void main(String[] args) {
+        int rows = 5; 
+
+        for (int i = 1; i <= rows; i++) {
+            
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print(" ");
+            }
+
+            
+            for (int k = 1; k <= i; k++) {
+                System.out.print("*");
+            }
+
+            
+            System.out.println();
+        }
+    }
+}
+
+
+* Assignment - 3:
+
+package LoopDemo;
+
+import java.util.Scanner;
+
+public class ATMSimulation {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double balance = 1000.00; 
+        int withdrawalCount = 0;
+        final int MAX_WITHDRAWALS = 5;
+
+        System.out.println("Welcome to the ATM!");
+
+        do {
+            System.out.println("\nCurrent balance: $" + balance);
+            System.out.print("Enter amount to withdraw: ");
+            double amount = scanner.nextDouble();
+
+            if (amount <= 0) {
+                System.out.println("Invalid amount. Please enter a positive number.");
+            } else if (amount > balance) {
+                System.out.println("Insufficient balance. Try a smaller amount.");
+            } else {
+                balance -= amount;
+                withdrawalCount++;
+                System.out.println("Withdrawal successful. Remaining balance: $" + balance);
+            }
+
+            if (withdrawalCount >= MAX_WITHDRAWALS) {
+                System.out.println("\nYou have reached the maximum of 5 withdrawals.");
+                break;
+            }
+
+            System.out.print("Do you want to make another withdrawal? (yes/no): ");
+            scanner.nextLine(); 
+            String choice = scanner.nextLine().trim().toLowerCase();
+
+            if (!choice.equals("yes")) {
+                break;
+            }
+
+        } while (withdrawalCount < MAX_WITHDRAWALS);
+
+        System.out.println("\nThank you for using the ATM!");
+        scanner.close();
+    }
+}
+
+
+* Assignment - 4 :
+
+package OperatorDemo;
+
+import java.util.Random;
+
+class Rectangle {
+    int length;
+    int width;
+
+    
+    Rectangle(int length, int width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    
+    int calculateArea() {
+        return length * width;
+    }
+}
+
+public class RectangleComparison {
+    public static void main(String[] args) {
+        Random rand = new Random();
+
+        
+        int length1 = rand.nextInt(20) + 1;
+        int width1 = rand.nextInt(20) + 1;
+
+        int length2 = rand.nextInt(20) + 1;
+        int width2 = rand.nextInt(20) + 1;
+
+        
+        Rectangle rect1 = new Rectangle(length1, width1);
+        Rectangle rect2 = new Rectangle(length2, width2);
+
+        
+        int area1 = rect1.calculateArea();
+        int area2 = rect2.calculateArea();
+
+        
+        System.out.println("Rectangle 1 -> Length: " + length1 + ", Width: " + width1 + ", Area: " + area1);
+        System.out.println("Rectangle 2 -> Length: " + length2 + ", Width: " + width2 + ", Area: " + area2);
+
+        
+        if (area1 > area2) {
+            System.out.println("Rectangle1 > Rectangle2");
+        } else if (area1 < area2) {
+            System.out.println("Rectangle1 < Rectangle2");
+        } else {
+            System.out.println("They are equal");
+        }
+    }
+}
