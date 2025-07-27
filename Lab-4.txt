@@ -1,0 +1,217 @@
+*Lab-4:
+
+*Assignment-1 :
+
+package StringDemo;
+
+public class ReverseString {
+    public static void main(String[] args) {
+        String original = "Hello";
+        String reversed = reverseString(original);
+        
+        System.out.println("Original: " + original);
+        System.out.println("Reversed: " + reversed);
+    }
+
+    public static String reverseString(String str) {
+        StringBuilder sb = new StringBuilder(str);
+        return sb.reverse().toString();
+    }
+}
+
+
+*Assignment-2 :
+
+package StringDemo;
+
+public class PalindromeCheck {
+    public static void main(String[] args) {
+        String str1 = "madam";
+        String str2 = "hello";
+
+        System.out.println(str1 + " → " + isPalindrome(str1));
+        System.out.println(str2 + " → " + isPalindrome(str2));
+    }
+
+    public static boolean isPalindrome(String str) {
+        int left = 0;
+        int right = str.length() - 1;
+
+        
+        while (left < right) {
+            if (str.charAt(left) != str.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+}
+
+
+*Assignment-3 :
+
+package StringDemo;
+
+public class VowelConsonantCount {
+    public static void main(String[] args) {
+        String input = "Hello World";
+
+        int vowels = 0;
+        int consonants = 0;
+
+        
+        input = input.toLowerCase();
+
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+
+         
+            if (Character.isLetter(ch)) {
+                if (isVowel(ch)) {
+                    vowels++;
+                } else {
+                    consonants++;
+                }
+            }
+        }
+
+        System.out.println("Input: " + input);
+        System.out.println("Vowels: " + vowels);
+        System.out.println("Consonants: " + consonants);
+    }
+
+    
+    public static boolean isVowel(char ch) {
+        return "aeiou".indexOf(ch) != -1;
+    }
+}
+
+
+*Assignment-4 :
+
+package StringDemo;
+
+public class RemoveDuplicates {
+    public static void main(String[] args) {
+        String input = "programming";
+        String result = removeDuplicates(input);
+
+        System.out.println("Original: " + input);
+        System.out.println("Without duplicates: " + result);
+    }
+
+    public static String removeDuplicates(String str) {
+        StringBuilder result = new StringBuilder();
+        boolean[] seen = new boolean[256]; 
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (!seen[ch]) {
+                seen[ch] = true;
+                result.append(ch);
+            }
+        }
+
+        return result.toString();
+    }
+}
+
+
+* Assignment-5 :
+
+package StringDemo;
+
+public class WordCount {
+    public static void main(String[] args) {
+        String input = "Java is fun";
+        int wordCount = countWords(input);
+
+        System.out.println("Input: \"" + input + "\"");
+        System.out.println("Word Count: " + wordCount);
+    }
+
+    public static int countWords(String str) {
+        
+        if (str == null || str.trim().isEmpty()) {
+            return 0;
+        }
+
+        String[] words = str.trim().split("\\s+");
+        return words.length;
+    }
+}
+
+
+* Assignment-6 :
+
+package StringDemo;
+
+import java.util.Arrays;
+
+public class AnagramCheck {
+    public static void main(String[] args) {
+        String str1 = "listen";
+        String str2 = "silent";
+
+        System.out.println("\"" + str1 + "\" and \"" + str2 + "\" → " + areAnagrams(str1, str2));
+    }
+
+    public static boolean areAnagrams(String str1, String str2) {
+        
+        str1 = str1.replaceAll("\\s", "").toLowerCase();
+        str2 = str2.replaceAll("\\s", "").toLowerCase();
+
+        
+        if (str1.length() != str2.length()) {
+            return false;
+        }
+
+        
+        char[] arr1 = str1.toCharArray();
+        char[] arr2 = str2.toCharArray();
+
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+
+        return Arrays.equals(arr1, arr2);
+    }
+}
+
+
+
+* Assignment - 7 :
+
+package StringDemo;
+
+public class StringBufferDemo {
+    public static void main(String[] args) {
+        
+        StringBuffer sb = new StringBuffer("Java");
+
+        System.out.println("Original: " + sb);
+
+        // 1. Append
+        sb.append(" Programming");
+        System.out.println("After append: " + sb);
+
+        // 2. Insert
+        sb.insert(5, "Language ");
+        System.out.println("After insert: " + sb);
+
+        // 3. Delete
+        sb.delete(5, 14); // Remove "Language "
+        System.out.println("After delete: " + sb);
+
+        // 4. Replace
+        sb.replace(0, 4, "Python");
+        System.out.println("After replace: " + sb);
+    }
+}
+
+
+
+
+
