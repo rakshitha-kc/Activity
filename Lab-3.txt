@@ -1,0 +1,220 @@
+* Lab-3 :
+
+*Assignment-1:
+
+package OOpsDemo;
+
+class BankAccount {
+    
+    private String accountHolderName;
+    private String bankName;
+    private double accountBalance;
+
+    
+    public BankAccount(String accountHolderName, String bankName, double initialBalance) {
+        this.accountHolderName = accountHolderName;
+        this.bankName = bankName;
+        this.accountBalance = initialBalance;
+    }
+
+    
+    public double getBalance() {
+        return accountBalance;
+    }
+
+    
+    public void deposit(double amount) {
+        if (amount > 0) {
+            accountBalance += amount;
+            System.out.println("Deposited " + amount + " to " + accountHolderName + "'s account.");
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= accountBalance) {
+            accountBalance -= amount;
+            System.out.println("Withdrew " + amount + " from " + accountHolderName + "'s account.");
+        } else {
+            System.out.println("Invalid or insufficient balance for withdrawal.");
+        }
+    }
+
+    
+    public void displayAccountInfo() {
+        System.out.println("Account Holder: " + accountHolderName);
+        System.out.println("Bank Name: " + bankName);
+        System.out.println("Current Balance: " + accountBalance);
+        System.out.println("--------------------------------");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        
+        BankAccount acc1 = new BankAccount("Rakshu", "ICICI", 5000.0);
+        BankAccount acc2 = new BankAccount("Lekhana", "HDFC", 10000.0);
+        BankAccount acc3 = new BankAccount("Dhanush", "SBI", 7500.0);
+
+        
+        acc1.deposit(1500);
+        acc1.withdraw(2000);
+        acc1.displayAccountInfo();
+
+        acc2.deposit(2000);
+        acc2.withdraw(3000);
+        acc2.displayAccountInfo();
+
+        acc3.deposit(1000);
+        acc3.withdraw(800);
+        acc3.displayAccountInfo();
+    }
+}
+
+
+* Assignment-2 :
+
+package OOpsDemo;
+
+import java.util.Scanner;
+
+class Animal {
+    public void makeSound() {
+        System.out.println("The animal makes a sound.");
+    }
+}
+
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("The dog barks.");
+    }
+}
+
+
+class Cat extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("The cat meows.");
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Animal animal = null;
+
+        System.out.println("Choose an animal to create:");
+        System.out.println("1. Animal");
+        System.out.println("2. Dog");
+        System.out.println("3. Cat");
+        System.out.print("Enter your choice (1-3): ");
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                animal = new Animal();
+                break;
+            case 2:
+                animal = new Dog();
+                break;
+            case 3:
+                animal = new Cat();
+                break;
+            default:
+                System.out.println("Invalid choice. Creating a generic animal.");
+                animal = new Animal();
+        }
+
+        System.out.println("Created object:");
+        animal.makeSound(); // Polymorphism in action
+
+        scanner.close();
+    }
+}
+
+
+* Assignment-3 :
+
+package OopsDemo;
+
+public class Student {
+    
+    private String name;
+    private int rollNumber;
+    private int marks;
+
+    
+    public Student(String name, int rollNumber, int marks) {
+        this.name = name;
+        this.rollNumber = rollNumber;
+        setMarks(marks); // Use setter to apply validation
+    }
+
+    
+    public String getName() {
+        return name;
+    }
+
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    
+    public int getRollNumber() {
+        return rollNumber;
+    }
+
+    
+    public void setRollNumber(int rollNumber) {
+        this.rollNumber = rollNumber;
+    }
+
+    
+    public int getMarks() {
+        return marks;
+    }
+
+    
+    public void setMarks(int marks) {
+        if (marks >= 0 && marks <= 100) {
+            this.marks = marks;
+        } else {
+            System.out.println("Invalid marks! Must be between 0 and 100.");
+        }
+    }
+
+    
+    public void displayStudentInfo() {
+        System.out.println("Student Name: " + name);
+        System.out.println("Roll Number : " + rollNumber);
+        System.out.println("Marks       : " + marks);
+        System.out.println("----------------------------");
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        
+        Student student1 = new Student("Nayana", 101, 85);
+        Student student2 = new Student("Kavana", 102, 110); // Invalid marks
+        Student student3 = new Student("Supritha", 103, 92);
+
+        
+        student2.setMarks(78); // Set valid marks after creation
+
+        
+        student1.displayStudentInfo();
+        student2.displayStudentInfo();
+        student3.displayStudentInfo();
+    }
+}
+
+
+
