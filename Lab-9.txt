@@ -1,0 +1,126 @@
+* Lab-9 :
+
+* Assignment-1 :
+
+package ExceptionDemo;
+
+import java.util.Scanner;
+
+public class SimpleCalculator {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            
+            System.out.print("Enter the first number: ");
+            double num1 = scanner.nextDouble();
+
+            
+            System.out.print("Enter the second number: ");
+            double num2 = scanner.nextDouble();
+
+            
+            System.out.print("Enter an operator (+, -, *, /): ");
+            char operator = scanner.next().charAt(0);
+
+            double result;
+
+            
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    System.out.println("Result: " + result);
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    System.out.println("Result: " + result);
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    System.out.println("Result: " + result);
+                    break;
+                case '/':
+                    if (num2 == 0) {
+                        System.out.println("Error: Division by zero is not allowed.");
+                    } else {
+                        result = num1 / num2;
+                        System.out.println("Result: " + result);
+                    }
+                    break;
+                default:
+                    System.out.println("Error: Invalid operator.");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: Invalid input. Please enter numbers only.");
+        }
+
+        scanner.close();
+    }
+}
+
+
+* Assignment - 2 :
+
+package ExceptionDemo;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class IntegerInputExample {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            
+            System.out.print("Enter an integer: ");
+            int number = scanner.nextInt();
+
+          
+            System.out.println("You entered: " + number);
+        } catch (InputMismatchException e) {
+            
+            System.out.println("Error: That is not a valid integer.");
+        } finally {
+            scanner.close(); // Close the scanner
+        }
+    }
+}
+
+
+* Assignment - 3 :
+
+package ExceptionDemo;
+
+import java.util.Scanner;
+
+public class ParseIntegerExample {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            
+            System.out.print("Enter a number: ");
+            String input = scanner.nextLine();
+
+            
+            int number = Integer.parseInt(input);
+
+            
+            System.out.println("You entered the integer: " + number);
+        } catch (NumberFormatException e) {
+            
+            System.out.println("Error: Invalid number format. Please enter a valid integer.");
+        } catch (NullPointerException e) {
+            
+            System.out.println("Error: Input was null.");
+        } finally {
+            scanner.close(); // Ensure scanner is closed
+        }
+    }
+}
+
+
