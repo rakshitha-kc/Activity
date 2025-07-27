@@ -1,0 +1,126 @@
+* Lab-8 :
+
+* Assignment - 1:
+
+package AbstractDemo;
+
+
+abstract class Shape {
+    
+    abstract double calculateArea();
+}
+
+
+class Circle extends Shape {
+    private double radius;
+
+    
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    
+    @Override
+    double calculateArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+
+class Rectangle extends Shape {
+    private double length;
+    private double width;
+
+    
+    public Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    
+    @Override
+    double calculateArea() {
+        return length * width;
+    }
+}
+
+
+public class ShapeAreaCalculator {
+    public static void main(String[] args) {
+        
+        Shape circle = new Circle(5.0);         
+        Shape rectangle = new Rectangle(4.0, 6.0); 
+
+        
+        System.out.println("Area of Circle: " + circle.calculateArea());
+        System.out.println("Area of Rectangle: " + rectangle.calculateArea());
+    }
+}
+
+
+
+* Assignment - 2 :
+
+package InheritanceDemo;
+
+import java.util.Scanner;
+
+
+class Animal {
+    void makeSound() {
+        System.out.println("The animal makes a sound.");
+    }
+}
+
+
+class Mammal extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("The mammal makes a sound.");
+    }
+}
+
+
+class Dog extends Mammal {
+    @Override
+    void makeSound() {
+        System.out.println("The dog barks.");
+    }
+}
+
+
+class Cat extends Mammal {
+    @Override
+    void makeSound() {
+        System.out.println("The cat meows.");
+    }
+}
+
+
+public class AnimalSoundDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Animal animal;
+
+        System.out.println("Choose an animal to create:");
+        System.out.println("1. Dog");
+        System.out.println("2. Cat");
+        System.out.print("Enter your choice (1 or 2): ");
+        int choice = scanner.nextInt();
+
+        
+        if (choice == 1) {
+            animal = new Dog();
+        } else if (choice == 2) {
+            animal = new Cat();
+        } else {
+            System.out.println("Invalid choice. Creating a generic animal.");
+            animal = new Animal();
+        }
+
+        
+        animal.makeSound();
+
+        scanner.close();
+    }
+}
